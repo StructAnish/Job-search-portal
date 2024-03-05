@@ -22,7 +22,7 @@ button.addEventListener("click", async function() {
         anchor.href = jobData.link;
 
         const heading = document.createElement('h2')
-        heading.innerText = jobData.profile;
+        heading.innerText = jobData.title;
         anchor.appendChild(heading);
 
         const location = document.createElement('p');
