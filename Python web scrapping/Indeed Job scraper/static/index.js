@@ -14,7 +14,11 @@ button.addEventListener("click", async function() {
 
     // Fetching back the jobs list from python
     const data = await response.json();
-    // console.log(data)
+    console.log(data)
+
+    // If button is pressed 2 times, it is appending the results. To solve this,  create a parent div and at the starting set its innerHtml to ""
+    jobsSection = document.getElementById("jobsSection");
+    jobsSection.innerHTML = ""
 
     data.forEach(jobData => {
 
@@ -28,8 +32,8 @@ button.addEventListener("click", async function() {
         const location = document.createElement('p');
         location.innerText = jobData.name + "\n" + jobData.location;
 
-        document.body.appendChild(anchor);
-        document.body.appendChild(location);
+        jobsSection.appendChild(anchor);
+        jobsSection.appendChild(location);
 
 
     });
