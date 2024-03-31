@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Data Display</title>
+</head>
+<body>
+    <h1>User Information</h1>
+    <ul id="userData"></ul>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+     import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+
+// Your web app's Firebase configuration
+     const firebaseConfig = {
+         apiKey: "AIzaSyAOF7Mx-W5-be-jgq-iyyKGa8FuiqMOZaE",
+         authDomain: "job-portal-016.firebaseapp.com",
+         databaseURL: "https://job-portal-016-default-rtdb.asia-southeast1.firebasedatabase.app",
+         projectId: "job-portal-016",
+         storageBucket: "job-portal-016.appspot.com",
+         messagingSenderId: "357059889049",
+         appId: "1:357059889049:web:ddc411d7ab20730ea17508",
+         measurementId: "G-WET3HVV3NW"
+     };
+
+// Initialize Firebase
+     const app = initializeApp(firebaseConfig);
+     const db = getDatabase(app);
+
+ </script>
+</body>
+</html>
