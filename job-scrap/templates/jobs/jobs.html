@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs</title>
+    <link rel="stylesheet" href="/static/css/jobs/jobs.css">
+</head>
+<body>
+    <div class="search-bar">
+        <form id="searchForm">
+            <input type="text" id="title" name="job_title" placeholder="Job Title" required>
+            <input type="text" id="location" name="location" placeholder="Job location">
+            <button type="submit">Search Jobs</button>
+          </form>
+    </div>
+    <div id = "job-results"></div>
+    <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
+    <script src="/static/js/jobs/index.js"></script>
+</body>
+</html>

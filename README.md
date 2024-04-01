@@ -13,24 +13,21 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd job-portal
+  cd job-portal/job-scrap
 ```
 
-Install dependencies
-
-```bash
-  npm install
-```
 
 Start the server
 
 ```bash
-  npm start
+  python scraper.py
 ```
 
 ## Tech Stack
 
-**Client:** React, , 
+**Client:** HTML, CSS, JavaScript 
 
-**Server:** 
+**Server:** Python, Flask
+
+**Automation:** Selenium
 
