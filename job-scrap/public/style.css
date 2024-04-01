@@ -1,0 +1,191 @@
+/* Importing Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    background-image: url("/job-scrap/public/images/hero-bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(17px);
+    --webkit-backdrop-filter: blur(17px);
+    border-right: 1px solid rgba(255, 255, 255, 0.7);
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 260px;
+}
+
+.sidebar .logo {
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 25px 10px 15px;
+}
+
+.logo img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.logo h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-left: 15px;
+    display: none;
+}
+
+.sidebar:hover .logo h2 {
+    display: block;
+}
+
+.sidebar .links {
+    list-style: none;
+    margin-top: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: calc(100% - 140px);
+}
+
+.sidebar .links::-webkit-scrollbar {
+    display: none;
+}
+
+.links li {
+    display: flex;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.links li:hover {
+    cursor: pointer;
+    background: #fff;
+}
+
+.links h4 {
+    color: #222;
+    font-weight: 500;
+    display: none;
+    margin-bottom: 10px;
+}
+
+.sidebar:hover .links h4 {
+    display: block;
+}
+
+.links hr {
+    margin: 10px 8px;
+    border: 1px solid #4c4c4c;
+}
+
+.sidebar:hover .links hr {
+    border-color: transparent;
+}
+
+.links li span {
+    padding: 12px 10px;
+}
+
+.links li a {
+    padding: 10px;
+    color: #000;
+    display: none;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.sidebar:hover .links li a {
+    display: block;
+}
+
+.links .logout-link {
+    margin-top: 20px;
+}
+
+
+/* Existing CSS */
+
+.center-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.center-content img {
+    width: 500px; /* Adjusted logo size */
+    border-radius: 0%;
+    margin-bottom: 0px; /* Reduced gap between name and logo */
+}
+
+.center-content h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-top: auto;
+}
+
+.center-content p {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+/* Existing CSS */
+/* Existing CSS */
+
+.sections {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.section {
+    width: 30%; /* Adjust as needed */
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.2); /* Transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Box shadow for card effect */
+    transition: all 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+}
+
+.section a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem; /* Increased font size for better visibility */
+    font-weight: bold; /* Bold font weight for emphasis */
+    display: block;
+    padding: 10px 0; /* Increased padding for better clickability */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.section a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background color on hover */
+}
+

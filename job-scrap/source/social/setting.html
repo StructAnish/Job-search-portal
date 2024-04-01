@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Application Form</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <link rel="stylesheet" href="setting.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="/job-scrap/public/images/logo.png" alt="logo">
+      
+    </div>
+    <ul class="links">
+        <li>
+            <span class="material-symbols-outlined">Home</span>
+            <a href="/job-scrap/public/home.html">Home</a>
+          </li>
+      <h4>Main Menu</h4>
+      <li>
+        <span class="material-symbols-outlined">Work</span>
+        <a href="#">Jobs</a>
+      </li>
+      <hr>
+      <h4>Account</h4>
+      <li>
+        <span class="material-symbols-outlined">Person</span>
+        <a href="/job-scrap/source/social/detail.html">Account Details</a>
+      </li>
+      <li class="logout-link">
+        <li>
+          <span class="material-symbols-outlined">logout</span>
+          <a href="/job-scrap/source/sign/signup.html">Logout </a>
+          </li>
+        </li>
+      <hr>
+      <li>
+          <span class="material-symbols-outlined">mail</span>
+          <a href="#">Feedback</a>
+        </li>
+    </ul>
+  </aside>
+    <div class="container">
+        <div class="form-box" id="saveBox">
+          <h2>Submit Application</h2>
+          <form id="jobApplicationForm">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age"><br>
+            <label for="jobType">Job Type:</label><br>
+            <input type="text" id="jobType" name="jobType"><br>
+            <label for="facebook">Facebook Profile:</label><br>
+            <input type="text" id="facebook" name="facebook"><br>
+            <label for="linkedin">LinkedIn Profile:</label><br>
+            <input type="text" id="linkedin" name="linkedin"><br><br>
+            <button type="submit" id="submitBtn">Submit</button>
+          </form>
+        </div>
+    
+        <div class="form-box" id="updateBox">
+          <h2>Update Information</h2>
+          <form id="updateInfoForm">
+            <label for="updateUsername">New Username:</label><br>
+            <input type="text" id="updateUsername" name="updateUsername"><br>
+            <label for="updateAge">New Age:</label><br>
+            <input type="number" id="updateAge" name="updateAge"><br>
+            <label for="updateJobType">New Job Type:</label><br>
+            <input type="text" id="updateJobType" name="updateJobType"><br>
+            <label for="updateFacebook">New Facebook Profile:</label><br>
+            <input type="text" id="updateFacebook" name="updateFacebook"><br>
+            <label for="updateLinkedin">New LinkedIn Profile:</label><br>
+            <input type="text" id="updateLinkedin" name="updateLinkedin"><br><br>
+            <button type="button" id="updateBtn">Update</button>
+          </form>
+        </div>
+      </div>
+  <script type="module">
+    // Firebase JavaScript SDK
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+    import { getAuth } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+    import { getDatabase, ref, push, set } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js';
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOF7Mx-W5-be-jgq-iyyKGa8FuiqMOZaE",
+      authDomain: "job-portal-016.firebaseapp.com",
+      databaseURL: "https://job-portal-016-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "job-portal-016",
+      storageBucket: "job-portal-016.appspot.com",
+      messagingSenderId: "357059889049",
+      appId: "1:357059889049:web:ddc411d7ab20730ea17508",
+      measurementId: "G-WET3HVV3NW"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getDatabase();
+
+    // Event listener for form submission
+    document.getElementById("jobApplicationForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      // Check if user is authenticated
+      const user = auth.currentUser;
+      if (!user) {
+        alert("Please login/signup to submit the form.");
+        return;
+      }
+
+      // Get form data
+      const username = document.getElementById("username").value;
+      const age = document.getElementById("age").value;
+      const jobType = document.getElementById("jobType").value;
+      const facebook = document.getElementById("facebook").value;
+      const linkedin = document.getElementById("linkedin").value;
+
+      // Store data in Firebase database
+      try {
+        await set(ref(db, `jobApplications/${user.uid}`), {
+          username: username,
+          age: age,
+          jobType: jobType,
+          facebook: facebook,
+          linkedin: linkedin,
+          userId: user.uid
+        });
+
+        // Clear form fields
+        document.getElementById("username").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("jobType").value = "";
+        document.getElementById("facebook").value = "";
+        document.getElementById("linkedin").value = "";
+
+        alert("Form submitted successfully!");
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("Error submitting form. Please try again later.");
+      }
+    });
+
+    // Event listener for update button
+    document.getElementById("updateBtn").addEventListener("click", async function() {
+      // Check if user is authenticated
+      const user = auth.currentUser;
+      if (!user) {
+        alert("Please login/signup to update your information.");
+        return;
+      }
+
+      // Get form data for update
+      const updateUsername = document.getElementById("updateUsername").value;
+      const updateAge = document.getElementById("updateAge").value;
+      const updateJobType = document.getElementById("updateJobType").value;
+      const updateFacebook = document.getElementById("updateFacebook").value;
+      const updateLinkedin = document.getElementById("updateLinkedin").value;
+
+      // Prepare data for update
+      const newData = {
+        username: updateUsername,
+        age: updateAge,
+        jobType: updateJobType,
+        facebook: updateFacebook,
+        linkedin: updateLinkedin,
+        userId: user.uid // Include userId to ensure the update is for the correct user
+      };
+
+      // Update data in Firebase database
+      try {
+        await set(ref(db, `jobApplications/${user.uid}`), newData);
+        alert("Information updated successfully!");
+
+        // Clear update form fields
+        document.getElementById("updateUsername").value = "";
+        document.getElementById("updateAge").value = "";
+        document.getElementById("updateJobType").value = "";
+        document.getElementById("updateFacebook").value = "";
+        document.getElementById("updateLinkedin").value = "";
+      } catch (error) {
+        console.error("Error updating document: ", error);
+        alert("Error updating information. Please try again later.");
+      }
+    });
+  </script>
+</body>
+</html>
