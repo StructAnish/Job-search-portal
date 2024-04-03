@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, jsonify, url_for
+from flask_socketio import SocketIO, emit
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -8,6 +9,7 @@ import threading
 import time
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 options = webdriver.ChromeOptions()
 
@@ -53,43 +55,27 @@ def signout():
 
 
 
-
 #.................... Scraping API code .........................
-@app.route("/api/jobs", methods=["POST"])
-def scrape_jobs():
-    data = request.get_json()
+@socketio.on('job_search')  # Listen for 'job_search' event from client
+def handle_job_search(data):
     domain = data["jobTitle"]
     location = data["location"]
 
     time1 = time.time()
 
-    # Optimizing using multithreading
-    t1 = threading.Thread(target = scrapeJobs, args = (domain, 'https://in.indeed.com/', "text-input-what", "resultContent", "jobTitle", "jcs-JobTitle", "css-1p0sjhy", "css-92r8pb"))
-    t2 = threading.Thread(target = scrapeJobs, args = (domain, 'https://www.glassdoor.co.in/Job/index.htm', "searchBar-jobTitle", "jobCard", "JobCard_jobTitle___7I6y", "JobCard_jobTitle___7I6y", "JobCard_location__rCz3x", "EmployerProfile_compactEmployerName__LE242"))
-    
-    # t2 = threading.Thread(target = scrapeJobs, args = (domain, 'https://www.glassdoor.co.in/Job/index.htm', "searchBar-jobTitle", location, "searchBar-location", "jobCard", "JobCard_jobTitle___7I6y", "JobCard_jobTitle___7I6y", "JobCard_location__rCz3x", "EmployerProfile_compactEmployerName__LE242"))
-    
-    t1.start()
-    t2.start()
-    t1.join()
-    t2.join()
-
+    scrapeJobs(domain, 'https://in.indeed.com/', "text-input-what", "resultContent", "jobTitle", "jcs-JobTitle", "css-1p0sjhy", "css-92r8pb")
+    scrapeJobs(domain, 'https://www.glassdoor.co.in/Job/index.htm', "searchBar-jobTitle", "jobCard", "JobCard_jobTitle___7I6y", "JobCard_jobTitle___7I6y", "JobCard_location__rCz3x", "EmployerProfile_compactEmployerName__LE242")
 
     print("Time taken: ",time.time() - time1)
 
-    return jsonify(jobs_info)
-
-
 
 # def scrapeJobs(domain, website, searchbarTag, location, locationSearchbarTag ,cardTag, jobtitleTag, joblinkTag, locationTag, companyTag):
-
 def scrapeJobs(domain, website, searchbarTag, cardTag, jobtitleTag, joblinkTag, locationTag, companyTag):
 
     driver = webdriver.Chrome(options = options)
 
     driver.get(website)
     time.sleep(0.5)
-
 
     # locationSearchBar = driver.find_element(By.ID, locationSearchbarTag)
     # locationSearchBar.clear()
@@ -109,12 +95,10 @@ def scrapeJobs(domain, website, searchbarTag, cardTag, jobtitleTag, joblinkTag, 
         job_location = result.find_element(By.CLASS_NAME, locationTag).text
         company_name = result.find_element(By.CLASS_NAME, companyTag).text
         
-        # Appending to global list 
-        jobs_info.append({"name" : company_name, "title" : job_title, "location": job_location, "link" : job_link})
-
-    return
+        emit("job_results", {"name" : company_name, "title" : job_title, "location": job_location, "link" : job_link})
+    
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.run(debug=True, port=5000)
+    socketio.run(app, debug=True)
+    # app.run(debug=True)

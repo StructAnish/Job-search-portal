@@ -9,13 +9,15 @@
 <body>
     <div class="search-bar">
         <form id="searchForm">
-            <input type="text" id="title" name="job_title" placeholder="Job Title" required>
-            <input type="text" id="location" name="location" placeholder="Job location">
+            <input type="search" id="title" name="job_title" placeholder="Job Title" onkeydown="return /[a-zA-Z ]/i.test(event.key)" required>
+            <input type="search" id="location" name="location" placeholder="Job location" onkeydown="return /[a-zA-Z ]/i.test(event.key)">
             <button type="submit">Search Jobs</button>
           </form>
     </div>
     <div id = "job-results"></div>
     <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
+    <!-- CDN for including socket.io -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
     <script src="/static/js/jobs/index.js"></script>
 </body>
 </html>
