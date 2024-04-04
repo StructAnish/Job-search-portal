@@ -1,8 +1,14 @@
 const socket = io();
 
+const loader = document.querySelector(".loader");
+
 const jobsSection = document.getElementById("job-results");
 document.getElementById("searchForm").addEventListener("submit", function(event) {
   event.preventDefault(); // Prevent default form submission
+
+  // remove loader-hidden class of loader
+  loader.classList.remove("loader-hidden");
+
   jobsSection.innerHTML = "";
 
   const jobTitle = document.getElementById("title").value;
@@ -13,6 +19,11 @@ document.getElementById("searchForm").addEventListener("submit", function(event)
 });
 
 socket.on('job_results', function(data) {  // Listen for 'job_results' event
+  // Hide loading screen
+  if(loader.classList.contains("loader-hidden") == false){
+    loader.classList.add("loader-hidden");
+  }
+
   // Display scraped results on the webpage
   displayScrapedJobs(data);
 });
