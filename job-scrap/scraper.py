@@ -53,7 +53,7 @@ def signout():
 #     return render_template("")
 
 
-
+indeedStatus = glassdoorStatus = 1
 
 #.................... Scraping API code .........................
 @socketio.on('job_search')  # Listen for 'job_search' event from client
@@ -63,39 +63,81 @@ def handle_job_search(data):
 
     time1 = time.time()
 
-    scrapeJobs(domain, 'https://in.indeed.com/', "text-input-what", "resultContent", "jobTitle", "jcs-JobTitle", "css-1p0sjhy", "css-92r8pb")
-    scrapeJobs(domain, 'https://www.glassdoor.co.in/Job/index.htm', "searchBar-jobTitle", "jobCard", "JobCard_jobTitle___7I6y", "JobCard_jobTitle___7I6y", "JobCard_location__rCz3x", "EmployerProfile_compactEmployerName__LE242")
+    scrapeJobs(domain, 'https://in.indeed.com/', "text-input-what", location, "text-input-where",
+                "job_seen_beacon", "jobTitle", "jcs-JobTitle", "css-1p0sjhy", "css-92r8pb",
+                "css-9446fg", "css-qvloho", "salary-snippet-container")
+    
+    scrapeJobs(domain, 'https://www.glassdoor.co.in/Job/index.htm', "searchBar-jobTitle", location,"searchBar-location",
+                "jobCard", "JobCard_jobTitle___7I6y", "JobCard_jobTitle___7I6y",
+                 "JobCard_location__rCz3x", "EmployerProfile_compactEmployerName__LE242",
+                 "JobCard_jobDescriptionSnippet__yWW8q", "JobCard_listingAge__Ny_nG", "JobCard_salaryEstimate__arV5J")
+    
+    
+    # This will tell no jobs are available
+    if indeedStatus == 0 and glassdoorStatus == 0:
+        emit("no_jobs", {})
 
     print("Time taken: ",time.time() - time1)
 
 
-# def scrapeJobs(domain, website, searchbarTag, location, locationSearchbarTag ,cardTag, jobtitleTag, joblinkTag, locationTag, companyTag):
-def scrapeJobs(domain, website, searchbarTag, cardTag, jobtitleTag, joblinkTag, locationTag, companyTag):
+def scrapeJobs(domain, website, searchbarTag, location, locationSearchbarTag, cardTag, jobtitleTag, 
+               joblinkTag, locationTag, companyTag, descriptionTag, jobPostedTag, salaryTag):
+    
+    global indeedStatus, glassdoorStatus
 
     driver = webdriver.Chrome(options = options)
 
     driver.get(website)
-    time.sleep(0.5)
+    time.sleep(0.8)
 
-    # locationSearchBar = driver.find_element(By.ID, locationSearchbarTag)
-    # locationSearchBar.clear()
-    # locationSearchBar.send_keys(location)
-    # locationSearchBar.send_keys(Keys.RETURN)
+    locationSearchBar = driver.find_element(By.ID, locationSearchbarTag)
+    locationSearchBar.clear()
+    locationSearchBar.send_keys(location)
 
     searchBar = driver.find_element(By.ID, searchbarTag)
     searchBar.clear()
     searchBar.send_keys(domain)
     searchBar.send_keys(Keys.RETURN)
+    time.sleep(1)
 
     results = driver.find_elements(By.CLASS_NAME, cardTag)
 
-    for result in results:
-        job_title = result.find_element(By.CLASS_NAME, jobtitleTag).text
-        job_link = result.find_element(By.CLASS_NAME, joblinkTag).get_attribute("href")
-        job_location = result.find_element(By.CLASS_NAME, locationTag).text
-        company_name = result.find_element(By.CLASS_NAME, companyTag).text
-        
-        emit("job_results", {"name" : company_name, "title" : job_title, "location": job_location, "link" : job_link})
+    # Checking if data is available or not
+    if len(results):
+        indeedStatus = glassdoorStatus = 1
+
+
+        for result in results:
+            job_title = result.find_element(By.CLASS_NAME, jobtitleTag).text
+            job_link = result.find_element(By.CLASS_NAME, joblinkTag).get_attribute("href")
+            job_location = result.find_element(By.CLASS_NAME, locationTag).text
+            company_name = result.find_element(By.CLASS_NAME, companyTag).text
+            description = result.find_element(By.CLASS_NAME, descriptionTag).text
+            job_posted = result.find_element(By.CLASS_NAME, jobPostedTag).text
+
+            try:
+                job_salary = result.find_element(By.CLASS_NAME, salaryTag)
+                job_salary = job_salary.text
+
+            except:
+                job_salary = ""
+            
+            emit("job_results",
+                 {
+                    "name" : company_name,
+                    "title" : job_title,
+                    "location": job_location,
+                    "link" : job_link,
+                    "description": description,
+                    "posted" : job_posted,
+                    "salary" : job_salary
+                })
+    
+    else:
+        if website == "https://in.indeed.com/":
+            indeedStatus = 0
+        else:
+            glassdoorStatus = 0
     
     
 
