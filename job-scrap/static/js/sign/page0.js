@@ -69,7 +69,7 @@ loginBtn.addEventListener('click', () => {
       const user = userCredential.user;
       if (user.emailVerified) {
         console.log('User is signed in with a verified email.');
-        location.href = "/job-scrap/public/home.html";
+        location.href = "/";
       } else {
         alert('Please verify your email before signing in.');
       }
