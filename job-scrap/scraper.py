@@ -132,6 +132,8 @@ def scrapeJobs(domain, website, searchbarTag, location, locationSearchbarTag, ca
                     "posted" : job_posted,
                     "salary" : job_salary
                 })
+        
+        driver.quit()
     
     else:
         if website == "https://in.indeed.com/":

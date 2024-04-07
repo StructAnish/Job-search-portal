@@ -7,19 +7,38 @@
     <link rel="stylesheet" href="/static/css/jobs/jobs.css">
 </head>
 <body>
-    <div class="search-bar">
-        <form id="searchForm">
-            <input type="search" id="title" name="job_title" placeholder="Job Title" onkeydown="return /[a-zA-Z ]/i.test(event.key)" required>
-            <input type="search" id="location" name="location" placeholder="Job location">
-            <button type="submit">Search Jobs</button>
-          </form>
-    </div>
+    <form id="searchForm">
+        <div class="search-bar">
+            
+            <div class="search-field left">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                <input type="text" id="title" name="job_title" class="search-input" placeholder="Job title, keywords, or company">
+                <svg class="close close-hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+            </div>
+    
+            <div class="separator"></div>
+    
+            <div class="search-field right">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+                <input type="text" id="location" name="location" class="search-input" placeholder="City, state, zip code, or 'remote'">
+                <svg class="close close-hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+            </div>
+    
+            <div class="button">
+                <button type="submit">Find Jobs</button>
+            </div>
+              
+        </div>
+    </form>
+
     <div id = "job-results"></div>
 
     <div class="loader loader-hidden"></div>
+    
     <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
     <!-- CDN for including socket.io -->
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
     <script src="/static/js/jobs/index.js"></script>
+    <script src="/static/js/jobs/jobs.js"></script>
 </body>
 </html>
