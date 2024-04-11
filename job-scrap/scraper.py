@@ -52,6 +52,10 @@ def signout():
 # def feedback():
 #     return render_template("")
 
+@app.route("/about")
+def about():
+    return render_template("/social/about.html")
+
 
 indeedStatus = glassdoorStatus = 1
 

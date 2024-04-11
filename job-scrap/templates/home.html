@@ -98,8 +98,8 @@
     function toggleAuthButtons(isLoggedIn) {
       const loginBtn = document.querySelector('.login-link');
       const logoutBtn = document.querySelector('.logout-link');
-      loginBtn.style.display = isLoggedIn ? "none" : "block";
-      logoutBtn.style.display = isLoggedIn ? "block" : "none";
+      loginBtn.style.display = isLoggedIn ? "none" : "flex";
+      logoutBtn.style.display = isLoggedIn ? "flex" : "none";
     }
 
     // Event listener for authentication state changes
