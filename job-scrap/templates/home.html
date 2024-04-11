@@ -37,17 +37,17 @@
           <span class="material-symbols-outlined">manage_accounts</span>
           <a href="/settings">Settings</a>
         </li>
-
+        <li class ="log">
+        <li class="login-link" style="display: none;">
+          <span class="material-symbols-outlined">login</span>
+          <a href="/signup">Login</a>
+        </li>
         <li class="logout-link">
-        <li>
-            <span class="material-symbols-outlined" id="loginBtn">login</span>
-            <a href="/signup">Login</a>
-        </li>
-        <li>
-          <span class="material-symbols-outlined" id="logoutBtn">logout</span>
+          <!-- No ID for the logout button -->
+          <span class="material-symbols-outlined">logout</span>
           <a href="/signout">Logout</a>
-          </li>
         </li>
+      </li>
         <hr>
         <li>
             <span class="material-symbols-outlined">mail</span>
@@ -94,24 +94,24 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
     
-        // Function to toggle login/logout button visibility
-        function toggleAuthButtons(isLoggedIn) {
-          const loginBtn = document.getElementById("loginBtn");
-          const logoutBtn = document.getElementById("logoutBtn");
-          loginBtn.style.display = isLoggedIn ? "none" : "block";
-          logoutBtn.style.display = isLoggedIn ? "block" : "none";
-        }
-    
-        // Event listener for authentication state changes
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            // User is logged in
-            toggleAuthButtons(true);
-          } else {
-            // No user is logged in
-            toggleAuthButtons(false);
-          }
-        });
+    // Function to toggle login/logout button visibility
+    function toggleAuthButtons(isLoggedIn) {
+      const loginBtn = document.querySelector('.login-link');
+      const logoutBtn = document.querySelector('.logout-link');
+      loginBtn.style.display = isLoggedIn ? "none" : "block";
+      logoutBtn.style.display = isLoggedIn ? "block" : "none";
+    }
+
+    // Event listener for authentication state changes
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is logged in
+        toggleAuthButtons(true);
+      } else {
+        // No user is logged in
+        toggleAuthButtons(false);
+      }
+    });
       </script>
   </body>
 </html>
