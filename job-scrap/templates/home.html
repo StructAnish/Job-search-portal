@@ -40,11 +40,11 @@
 
         <li class="logout-link">
         <li>
-            <span class="material-symbols-outlined">login</span>
+            <span class="material-symbols-outlined" id="loginBtn">login</span>
             <a href="/signup">Login</a>
         </li>
         <li>
-          <span class="material-symbols-outlined">logout</span>
+          <span class="material-symbols-outlined" id="logoutBtn">logout</span>
           <a href="/signout">Logout</a>
           </li>
         </li>
@@ -63,7 +63,7 @@
 
           <div class="sections">
             <div class="section">
-                <a>About Us</a>
+                <a href="/about">About Us</a>
             </div>
             <div class="section">
                 <a>Subscribe</a>
@@ -73,6 +73,45 @@
             </div>
         </div>
       </div>
-      
+      <script type="module">
+        // Firebase JavaScript SDK
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+    
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAOF7Mx-W5-be-jgq-iyyKGa8FuiqMOZaE",
+          authDomain: "job-portal-016.firebaseapp.com",
+          databaseURL: "https://job-portal-016-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "job-portal-016",
+          storageBucket: "job-portal-016.appspot.com",
+          messagingSenderId: "357059889049",
+          appId: "1:357059889049:web:ddc411d7ab20730ea17508",
+          measurementId: "G-WET3HVV3NW"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+    
+        // Function to toggle login/logout button visibility
+        function toggleAuthButtons(isLoggedIn) {
+          const loginBtn = document.getElementById("loginBtn");
+          const logoutBtn = document.getElementById("logoutBtn");
+          loginBtn.style.display = isLoggedIn ? "none" : "block";
+          logoutBtn.style.display = isLoggedIn ? "block" : "none";
+        }
+    
+        // Event listener for authentication state changes
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            // User is logged in
+            toggleAuthButtons(true);
+          } else {
+            // No user is logged in
+            toggleAuthButtons(false);
+          }
+        });
+      </script>
   </body>
 </html>
