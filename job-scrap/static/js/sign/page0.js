@@ -75,7 +75,7 @@ loginBtn.addEventListener('click', () => {
       }
     })
     .catch((error) => {
-      alert('Error signing in: ' + error.message);
+      alert('Error signing in. Wrong Email or Password.');
     });
 });
 const forgotBtn=document.querySelector('.forgotbtn');
@@ -94,3 +94,25 @@ forgotBtn.addEventListener('click', () => {
   });
   }
 });
+
+const emailInput = document.querySelector('#inUsr');
+const passwordInput = document.querySelector('#inPass');
+emailInput.addEventListener("keydown", (event) => {
+  if (event.key == 'Enter'){
+    passwordInput.focus();
+  }
+});
+
+passwordInput.addEventListener("keydown", (event) => {
+  if (event.key == 'Enter'){
+    loginBtn.click();
+  }
+});
+
+const signupPasswordInput = document.getElementById('password');
+signupPasswordInput.addEventListener("keydown", (event) => {
+  if (event.key == 'Enter'){
+    signupBtn.click();
+  }
+});
+
