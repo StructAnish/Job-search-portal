@@ -118,6 +118,7 @@ button[type="button"]:hover {
   }
   
   .sidebar .links {
+    padding: 0;
     list-style: none;
     margin-top: 20px;
     overflow-y: auto;

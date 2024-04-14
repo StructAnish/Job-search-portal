@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Jobs</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="/static/css/jobs/jobs.css">
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+          <img src="/static/images/logo.png" alt="logo">
+          
+        </div>
+        <ul class="links">
+            <!-- <h4>Main Menu</h4> -->
+            <li>
+                <span class="material-symbols-outlined">Home</span>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">Work</span>
+                <a href="/jobs">Jobs</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">Person</span>
+                <a href="/details">Account Details</a>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">manage_accounts</span>
+                <a href="/settings">Settings</a>
+            </li>
+
+        </ul>
+    </aside>
+    
+
+
+
+    <!-- ..................... -->
+    <h1>My Saved Jobs</h1>
+
+    <div id = "job-results"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="/static/js/jobs/saved_jobs.js" type="module"></script>
+
+</body>
+</html>

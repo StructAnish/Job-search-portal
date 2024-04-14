@@ -35,6 +35,10 @@ def index():
 def jobs():
     return render_template("/jobs/jobs.html")
 
+@app.route("/saved_jobs")
+def saved_jobs():
+    return render_template("/jobs/saved_jobs.html")
+
 @app.route("/details")
 def details():
     return render_template("/social/detail.html")
