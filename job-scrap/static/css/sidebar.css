@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 110px;
+    width: 5%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@
 }
 
 .sidebar:hover {
-    width: 260px;
+    width: 15%;
 }
 
 .sidebar .logo {
