@@ -5,7 +5,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 # Mulithreading:
-import threading
 import time
 
 app = Flask(__name__)
