@@ -16,8 +16,13 @@ Go to the project directory
   cd job-portal/job-scrap
 ```
 
+Installation
 
-Start the server
+```bash
+  pip install requirements.txt
+```
+
+Run code
 
 ```bash
   python scraper.py
