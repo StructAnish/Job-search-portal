@@ -32,7 +32,6 @@ Run code
 
 **Client:** HTML, CSS, JavaScript 
 
-**Server:** Python, Flask
+**Server:** Python, Flask, Socket.io
 
 **Automation:** Selenium
-
